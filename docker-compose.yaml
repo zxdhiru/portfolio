@@ -1,0 +1,12 @@
+services:
+  potfolio:
+    image: zxdhiru/portfolio:v1.0.0
+    container_name: potfolio
+    ports:
+      - "3000:3000"
+    networks:
+      - portfolio-network
+
+networks:
+  portfolio-network:
+    driver: bridge
