@@ -1,10 +1,19 @@
-
 import { Form, useActionData } from "react-router";
-import type { Route } from "../routes/+types/home";
+import { useState } from "react";
 
 export function ContactSection() {
-  const actionData = useActionData();
+  const [name, seName] = useState("");
+  const [email, seEmail] = useState("");
+  const [message, seMessage] = useState("");
 
+  const handleFormSubmit = (event: any) => {
+    event.preventDefault();
+    console.log("Form submitted:", {
+      name,
+      email,
+      message,
+    });
+  };
   return (
     <section
       id="contact"
@@ -12,10 +21,7 @@ export function ContactSection() {
       aria-labelledby="contact-title"
     >
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-         
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <h2
             id="contact-title"
             className="text-4xl sm:text-5xl font-extrabold text-neutral-900 dark:text-white mb-6"
@@ -28,21 +34,7 @@ export function ContactSection() {
           </p>
         </div>
 
-        <div
-         
-          className="space-y-6"
-        >
-          {actionData?.error && (
-            <div className="p-4 bg-red-100 text-red-700 rounded-xl">
-              {actionData.error}
-            </div>
-          )}
-          {actionData?.success && (
-            <div className="p-4 bg-green-100 text-green-700 rounded-xl">
-              {actionData.message || "Message sent successfully!"}
-            </div>
-          )}
-
+        <div className="space-y-6">
           <Form
             method="post"
             className="space-y-6 bg-white dark:bg-neutral-800 rounded-2xl shadow-lg p-8 sm:p-10"
@@ -55,7 +47,6 @@ export function ContactSection() {
                 Name
               </label>
               <input
-                
                 type="text"
                 id="name"
                 name="name"
@@ -74,7 +65,6 @@ export function ContactSection() {
                 Email
               </label>
               <input
-                
                 type="email"
                 id="email"
                 name="email"
@@ -105,16 +95,15 @@ export function ContactSection() {
             <button
               type="submit"
               className="w-full py-4 rounded-xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 font-semibold hover:bg-neutral-800 dark:hover:bg-neutral-100 transition-colors text-lg shadow-lg hover:shadow-xl"
+              onClick={handleFormSubmit}
+              aria-label="Send Message"
             >
               Send Message
             </button>
           </Form>
         </div>
 
-        <div
-          
-          className="mt-8 text-center"
-        >
+        <div className="mt-8 text-center">
           <a
             href="mailto:zxdhiru.dev@gmail.com"
             className="inline-flex items-center px-8 py-3 rounded-xl border-2 border-neutral-900 dark:border-white text-neutral-900 dark:text-white font-semibold hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors shadow-lg hover:shadow-xl"
