@@ -1,5 +1,4 @@
 import { Form, useActionData } from "react-router";
-import type { Route } from "../routes/+types/home";
 import { useState } from "react";
 
 export function ContactSection() {
