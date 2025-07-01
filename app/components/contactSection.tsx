@@ -1,19 +1,32 @@
 import { Form, useActionData } from "react-router";
 import { useState } from "react";
 
-export function ContactSection() {
-  const [name, seName] = useState("");
-  const [email, seEmail] = useState("");
-  const [message, seMessage] = useState("");
-
-  const handleFormSubmit = (event: any) => {
-    event.preventDefault();
-    console.log("Form submitted:", {
-      name,
-      email,
-      message,
-    });
-  };
+export function ContactSection({ actionData }: Route.ComponentProps) {
+  const result = actionData;
+  if (result?.success) {
+    return (
+      <section
+        id="contact"
+        className="py-16 bg-gradient-to-b from-white via-neutral-50 to-white dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900"
+        aria-labelledby="contact-title"
+      >
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2
+              id="contact-title"
+              className="text-4xl sm:text-5xl font-extrabold text-neutral-900 dark:text-white mb-6"
+            >
+              Thank You!
+            </h2>
+            <p className="text-xl text-neutral-600 dark:text-neutral-300">
+              Your message has been sent successfully. I will get back to you
+              soon!
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
   return (
     <section
       id="contact"
@@ -51,6 +64,23 @@ export function ContactSection() {
                 id="name"
                 name="name"
                 autoComplete="name"
+                required
+                className="w-full px-4 py-3 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-neutral-500 transition-shadow"
+                aria-required="true"
+              />
+            </div>
+            <div className="space-y-2">
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium text-neutral-700 dark:text-neutral-200"
+              >
+                Phone
+              </label>
+              <input
+                type="text"
+                id="phone"
+                name="phone"
+                autoComplete="phone"
                 required
                 className="w-full px-4 py-3 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-neutral-500 transition-shadow"
                 aria-required="true"
