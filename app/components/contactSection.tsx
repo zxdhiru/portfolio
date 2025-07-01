@@ -1,10 +1,32 @@
-
 import { Form, useActionData } from "react-router";
 import type { Route } from "../routes/+types/home";
 
-export function ContactSection() {
-  const actionData = useActionData();
-
+export function ContactSection({ actionData }: Route.ComponentProps) {
+  const result = actionData;
+  if (result?.success) {
+    return (
+      <section
+        id="contact"
+        className="py-16 bg-gradient-to-b from-white via-neutral-50 to-white dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900"
+        aria-labelledby="contact-title"
+      >
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2
+              id="contact-title"
+              className="text-4xl sm:text-5xl font-extrabold text-neutral-900 dark:text-white mb-6"
+            >
+              Thank You!
+            </h2>
+            <p className="text-xl text-neutral-600 dark:text-neutral-300">
+              Your message has been sent successfully. I will get back to you
+              soon!
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
   return (
     <section
       id="contact"
@@ -12,10 +34,7 @@ export function ContactSection() {
       aria-labelledby="contact-title"
     >
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-         
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <h2
             id="contact-title"
             className="text-4xl sm:text-5xl font-extrabold text-neutral-900 dark:text-white mb-6"
@@ -28,21 +47,7 @@ export function ContactSection() {
           </p>
         </div>
 
-        <div
-         
-          className="space-y-6"
-        >
-          {actionData?.error && (
-            <div className="p-4 bg-red-100 text-red-700 rounded-xl">
-              {actionData.error}
-            </div>
-          )}
-          {actionData?.success && (
-            <div className="p-4 bg-green-100 text-green-700 rounded-xl">
-              {actionData.message || "Message sent successfully!"}
-            </div>
-          )}
-
+        <div className="space-y-6">
           <Form
             method="post"
             className="space-y-6 bg-white dark:bg-neutral-800 rounded-2xl shadow-lg p-8 sm:p-10"
@@ -55,11 +60,27 @@ export function ContactSection() {
                 Name
               </label>
               <input
-                
                 type="text"
                 id="name"
                 name="name"
                 autoComplete="name"
+                required
+                className="w-full px-4 py-3 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-neutral-500 transition-shadow"
+                aria-required="true"
+              />
+            </div>
+            <div className="space-y-2">
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium text-neutral-700 dark:text-neutral-200"
+              >
+                Phone
+              </label>
+              <input
+                type="text"
+                id="phone"
+                name="phone"
+                autoComplete="phone"
                 required
                 className="w-full px-4 py-3 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-neutral-500 transition-shadow"
                 aria-required="true"
@@ -74,7 +95,6 @@ export function ContactSection() {
                 Email
               </label>
               <input
-                
                 type="email"
                 id="email"
                 name="email"
@@ -111,10 +131,7 @@ export function ContactSection() {
           </Form>
         </div>
 
-        <div
-          
-          className="mt-8 text-center"
-        >
+        <div className="mt-8 text-center">
           <a
             href="mailto:zxdhiru.dev@gmail.com"
             className="inline-flex items-center px-8 py-3 rounded-xl border-2 border-neutral-900 dark:border-white text-neutral-900 dark:text-white font-semibold hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors shadow-lg hover:shadow-xl"

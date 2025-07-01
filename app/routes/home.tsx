@@ -4,6 +4,7 @@ import { ProjectsSection } from "~/components/projectsSection";
 import { AboutSection } from "~/components/aboutSection";
 import { SkillsSection } from "~/components/skillsSection";
 import { ContactSection } from "~/components/contactSection";
+import { submitQuery } from "~/lib/utils";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -12,7 +13,26 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function Home() {
+export async function action({ request }: Route.ActionArgs) {
+  let formData = await request.formData();
+  let title = formData.get("name");
+  let email = formData.get("email");
+  let phone = formData.get("phone");
+  let message = formData.get("message");
+  const phoneNumber =
+    typeof phone === "string" && phone.trim() !== "" && !isNaN(Number(phone))
+      ? Number(phone)
+      : 0;
+  const query = await submitQuery(
+    title as string,
+    email as string,
+    phoneNumber,
+    message as string
+  );
+  return query;
+}
+
+export default function Home({ actionData }: Route.ComponentProps) {
   return (
     <main className="bg-white dark:bg-neutral-900 min-h-screen flex flex-col">
       {/* Modern glassy floating card for hero */}
@@ -41,7 +61,27 @@ export default function Home() {
             className="animate-fade-in-up"
             style={{ animationDelay: "0.3s" }}
           >
-            <ContactSection />
+            <ContactSection
+              actionData={actionData}
+              loaderData={undefined}
+              params={{}}
+              matches={[
+                {
+                  id: "root",
+                  params: {},
+                  pathname: "/",
+                  data: undefined,
+                  handle: undefined,
+                },
+                {
+                  id: "routes/home",
+                  params: {},
+                  pathname: "/home",
+                  data: undefined,
+                  handle: undefined,
+                },
+              ]}
+            />
           </div>
         </div>
       </section>
