@@ -1,5 +1,5 @@
 import { Form, useActionData } from "react-router";
-import type { Route } from "../routes/+types/home";
+import { useState } from "react";
 
 export function ContactSection({ actionData }: Route.ComponentProps) {
   const result = actionData;
@@ -125,6 +125,8 @@ export function ContactSection({ actionData }: Route.ComponentProps) {
             <button
               type="submit"
               className="w-full py-4 rounded-xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 font-semibold hover:bg-neutral-800 dark:hover:bg-neutral-100 transition-colors text-lg shadow-lg hover:shadow-xl"
+              onClick={handleFormSubmit}
+              aria-label="Send Message"
             >
               Send Message
             </button>
