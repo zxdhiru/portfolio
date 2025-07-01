@@ -4,7 +4,7 @@ export async function submitQuery(
   phone: number,
   message: string
 ) {
-  const response = await fetch("http://localhost:5001/api/v1/queries/", {
+  const response = await fetch("https://api.zxdhiru.xyz/api/v1/queries/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
